@@ -14,6 +14,9 @@
   overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
+.ask-anything{
+  font-size: 25px;
+}
 .ask-anything {
   text-align: center;  /* Centers the text horizontally */
   font-size: 25px;     /* Adjust font size if needed */

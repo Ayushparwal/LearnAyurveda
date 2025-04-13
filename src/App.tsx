@@ -49,7 +49,7 @@ const App = () => {
           Ayurveda is a traditional Indian system of medicine that focuses on balance within the body, mind, and spirit. It utilizes natural remedies, lifestyle changes, and dietary practices based on the individual's dosha type: Vata, Pitta, or Kapha.
         </p>
         
-        <p className="made-by">Made by <b>Ayush Parwal</b> with lots of ❤️</p>
+        <p className="made-by">Made by <b>Ayush Parwal</b> with lots of ❤️.</p>
       </footer>
     </div>
   );

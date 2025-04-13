@@ -181,3 +181,36 @@ button:active {
     padding: 10px;
   }
 }
+
+
+/* footer design  */
+/* Footer styles */
+.footer {
+  width: 100%;
+  background-color: #1f2937;
+  color: #9ca3af;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  border-top: 1px solid #374151;
+  margin-top: auto;
+}
+
+.footer-note {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #d1d5db;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}
+
+.made-by {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #f9fafb;
+  font-style: serif;
+}
+
+

@@ -12,7 +12,6 @@ interface ChatData {
 const App = () => {
   const [chats, setChats] = useState<ChatData[]>([]);
 
-  // Load from localStorage on mount
   useEffect(() => {
     const savedChats = JSON.parse(localStorage.getItem('chats') || '[]');
     setChats(savedChats);
@@ -22,7 +21,6 @@ const App = () => {
     }
   }, []);
 
-  // Persist to localStorage
   const saveChats = (updatedChats: ChatData[]) => {
     setChats(updatedChats);
     localStorage.setItem('chats', JSON.stringify(updatedChats));
@@ -37,14 +35,22 @@ const App = () => {
     saveChats(updatedChats);
   };
 
-  const selectedChat = chats[0];  // Automatically select the first chat
+  const selectedChat = chats[0];
 
   return (
     <div className="App">
       <Navbar />
       <div className="main-content">
-        {selectedChat && <Chat />}  {/* No need to pass chatName anymore */}
+        {selectedChat && <Chat />}
       </div>
+      <footer className="footer">
+        <p>&copy; {new Date().getFullYear()} AyurvedaBot. All rights reserved.</p>
+        <p className="footer-note">
+          Ayurveda is a traditional Indian system of medicine that focuses on balance within the body, mind, and spirit. It utilizes natural remedies, lifestyle changes, and dietary practices based on the individual's dosha type: Vata, Pitta, or Kapha.
+        </p>
+        
+        <p className="made-by">Made by <b>Ayush Parwal</b> with lots of ❤️</p>
+      </footer>
     </div>
   );
 };

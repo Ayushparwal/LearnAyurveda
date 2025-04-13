@@ -1,0 +1,41 @@
+/* Light Theme Chat Container */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #c6f3fb;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  height: 430px;
+  max-width: 750px;
+  width: 90%;
+  padding: 20px;
+  margin: 40px auto 0 auto;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+.ask-anything {
+  text-align: center;  /* Centers the text horizontally */
+  font-size: 25px;     /* Adjust font size if needed */
+  font-weight: bold;   /* Optional: Make it bold */
+  margin-bottom: 10px; /* Optional: Add some space below the text */
+}
+
+/* Responsive: Stack and adjust layout on small screens */
+@media (max-width: 768px) {
+  .chat-container {
+    width: 95%;
+    height: auto;
+    padding: 16px;
+    margin: 20px auto;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .chat-container {
+    background-color: #1e293b; /* Dark Slate */
+    color: #f1f5f9; /* Light text */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+}

@@ -1,0 +1,67 @@
+/* Input Container */
+.input-container {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 16px;
+}
+
+/* Input Field */
+input[type="text"] {
+  flex: 1;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 8px; /* Rounded corners */
+  border: 1px solid #374151; /* Dark border for input */
+  background-color: #1f2937; /* Dark background for input */
+  color: #e5e7eb; /* Light text color */
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #10b981; /* Dark Green border on focus */
+  background-color: #374151; /* Slightly lighter background when focused */
+}
+
+/* Button */
+button {
+  padding: 12px 18px;
+  font-size: 16px;
+  border-radius: 8px; /* Rounded corners */
+  border: 1px solid #374151; /* Dark border */
+  cursor: pointer;
+  background-color: #10b981; /* Dark Green */
+  color: white;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #059669; /* Darker green on hover */
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+button:active {
+  transform: translateY(0); /* Reset when clicked */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  /* Input container */
+  .input-container {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Input field on mobile */
+  input[type="text"] {
+    font-size: 14px; /* Slightly smaller font size */
+    padding: 12px;
+  }
+
+  /* Button on mobile */
+  button {
+    font-size: 14px; /* Adjust button font size */
+    padding: 10px 14px;
+  }
+}

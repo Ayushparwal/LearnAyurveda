@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import ChatBox from "./ChatBox";
 import InputForm from "./InputForm";
 import "./Chat.css";
-import { HfInference } from "@huggingface/inference";
 import axios from "axios";
 
 interface Message {
@@ -73,12 +72,12 @@ You will politely decline to help with non-Ayurveda-related questions.`,
     if (messages.length > 0 && messages[messages.length - 1].role === "user") {
       inference();
     }
-  }, [messages]);
+  }, [messages, inference]);
 
   const sendMessage = async (event?: React.FormEvent) => {
     if (event) event.preventDefault();
     if (!userInput.trim()) return;
-    let input = userInput;
+    const input = userInput;
     setUserInput("");
 
     setMessages((prevMessages) => [

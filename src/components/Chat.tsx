@@ -3,6 +3,7 @@ import ChatBox from "./ChatBox";
 import InputForm from "./InputForm";
 import "./Chat.css";
 import { HfInference } from "@huggingface/inference";
+import axios from "axios";
 
 interface Message {
   role: string;
@@ -27,28 +28,35 @@ const Chat: React.FC = () => {
   }, [messages]);
 
   const inference = async () => {
-    const client = new HfInference(import.meta.env.VITE_HF_API_KEY);
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization:
+        "Bearer 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",
+    };
 
-    const chatCompletion = await client
-      .chatCompletion({
-        model: "meta-llama/Llama-3.2-3B-Instruct",
-        messages: [
-          {
-            role: "system",
-            content: `
+    const chatCompletion = await axios
+      .post(
+        "https://api.groq.com/openai/v1/chat/completions",
+        {
+          model: "llama-3.3-70b-versatile",
+          messages: [
+            {
+              role: "system",
+              content: `
                 You are a helpful assistant.
 You're known as the AyurHaven bot for the AyurHaven platform – the go-to platform for holistic wellness and Ayurvedic living.
 You specialize in helping with Ayurveda-related questions, including topics like herbal remedies, dosha balancing, Ayurvedic nutrition, daily routines (dinacharya), seasonal practices (ritucharya), and natural healing methods.
 When a user approaches you with a query, you must answer appropriately and in detail, providing information rooted in Ayurvedic principles and classical wisdom.
 Your response must be purely in text format, with no special code snippets. Formatting MUST be proper and reader-friendly.
-You will politely decline to help with non-Ayurveda-related questions.
-Do not exceed the 200 token limit.`,
-          },
-          ...messages,
-        ],
-        max_tokens: 1000,
-      })
-      .then((response) => response.choices[0]);
+You will politely decline to help with non-Ayurveda-related questions.`,
+            },
+            ...messages,
+          ],
+          max_tokens: 1000,
+        },
+        { headers }
+      )
+      .then((response) => response.data.choices[0]);
 
     setMessages((prevMessages) => [
       ...prevMessages,
@@ -83,7 +91,7 @@ Do not exceed the 200 token limit.`,
     <div className="chat-container">
       <div className="ask-anything">What can I help with?</div>
       <ChatBox messages={messages} />
-      
+
       <InputForm
         userInput={userInput}
         setUserInput={setUserInput}

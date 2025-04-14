@@ -43,6 +43,8 @@ const App = () => {
       <div className="main-content">
         {selectedChat && <Chat />}
       </div>
+      <br>
+      </br>
       <footer className="footer">
         <p>&copy; {new Date().getFullYear()} AyurvedaBot. All rights reserved.</p>
         <p className="footer-note">

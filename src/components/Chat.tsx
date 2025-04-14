@@ -83,6 +83,7 @@ Do not exceed the 150 token limit.`,
     <div className="chat-container">
       <div className="ask-anything">What can I help with?</div>
       <ChatBox messages={messages} />
+      
       <InputForm
         userInput={userInput}
         setUserInput={setUserInput}

@@ -31,8 +31,8 @@ button {
   border-radius: 8px; /* Rounded corners */
   border: 1px solid #374151; /* Dark border */
   cursor: pointer;
-  background-color: #10b981; /* Dark Green */
-  color: white;
+  background-color: #0fac78; /* Dark Green */
+  color: rgb(0, 0, 0);
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 

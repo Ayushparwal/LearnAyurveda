@@ -1,8 +1,15 @@
 /* Reset margin and padding for body and html */
-body, html {
+html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  width: 100%;
+  background-color: #0D1321; /* Or your desired background color */
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 .App {

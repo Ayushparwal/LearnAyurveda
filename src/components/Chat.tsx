@@ -10,11 +10,9 @@ interface Message {
 }
 
 const Chat: React.FC = () => {
-  // Removed chatName from props
   const [messages, setMessages] = useState<Message[]>([]);
   const [userInput, setUserInput] = useState("");
 
-  // Remove the use of chatId from localStorage and only keep the messages
   useEffect(() => {
     const savedMessages = JSON.parse(
       localStorage.getItem("chat-messages") || "[]"
@@ -26,15 +24,15 @@ const Chat: React.FC = () => {
     localStorage.setItem("chat-messages", JSON.stringify(messages));
   }, [messages]);
 
-  const inference = async () => {
+  const inference = async (latestUserInput: string) => {
     const headers = {
       "Content-Type": "application/json",
       Authorization:
         "Bearer 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",
     };
 
-    const chatCompletion = await axios
-      .post(
+    try {
+      const chatCompletion = await axios.post(
         "https://api.groq.com/openai/v1/chat/completions",
         {
           model: "llama-3.3-70b-versatile",
@@ -43,54 +41,67 @@ const Chat: React.FC = () => {
               role: "system",
               content: `
                 You are a helpful assistant.
-You're known as the AyurHaven bot for the AyurHaven platform – the go-to platform for holistic wellness and Ayurvedic living.
-You specialize in helping with Ayurveda-related questions, including topics like herbal remedies, dosha balancing, Ayurvedic nutrition, daily routines (dinacharya), seasonal practices (ritucharya), and natural healing methods.
-When a user approaches you with a query, you must answer appropriately and in detail, providing information rooted in Ayurvedic principles and classical wisdom.
-Your response must be purely in text format, with no special code snippets. Formatting MUST be proper and reader-friendly.
-You will politely decline to help with non-Ayurveda-related questions.`,
+                You're known as the AyurHaven bot for the AyurHaven platform – the go-to platform for holistic wellness and Ayurvedic living.
+                You specialize in helping with Ayurveda-related questions, including topics like herbal remedies, dosha balancing, Ayurvedic nutrition, daily routines (dinacharya), seasonal practices (ritucharya), and natural healing methods.
+                When a user approaches you with a query, you must answer appropriately and in detail, providing information rooted in Ayurvedic principles and classical wisdom.
+                Your response must be purely in text format, with no special code snippets. Formatting MUST be proper and reader-friendly.
+                You will politely decline to help with non-Ayurveda-related questions.
+              `,
             },
-            ...messages,
+            {
+              role: "user",
+              content: latestUserInput,
+            },
           ],
           max_tokens: 1000,
         },
         { headers }
-      )
-      .then((response) => response.data.choices[0]);
+      );
 
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      {
-        role: "system",
-        content:
-          chatCompletion.message.content ||
-          `Sorry, I'm having trouble understanding right now.`,
-      },
-    ]);
-  };
+      const reply = chatCompletion.data.choices[0].message.content;
 
-  useEffect(() => {
-    if (messages.length > 0 && messages[messages.length - 1].role === "user") {
-      inference();
+      // Replace "Thinking..." with actual response
+      setMessages((prevMessages) => {
+        const updated = [...prevMessages];
+        updated[updated.length - 1] = {
+          role: "system",
+          content: reply || "Sorry, I couldn't respond.",
+        };
+        return updated;
+      });
+    } catch (err) {
+      setMessages((prevMessages) => {
+        const updated = [...prevMessages];
+        updated[updated.length - 1] = {
+          role: "system",
+          content: "An error occurred while processing your request.",
+        };
+        return updated;
+      });
     }
-  }, [messages, inference]);
+  };
 
   const sendMessage = async (event?: React.FormEvent) => {
     if (event) event.preventDefault();
     if (!userInput.trim()) return;
+
     const input = userInput;
     setUserInput("");
 
+    // Add user message and placeholder
     setMessages((prevMessages) => [
       ...prevMessages,
       { role: "user", content: input },
+      { role: "system", content: "Thinking..." },
     ]);
+
+    await inference(input);
   };
 
   return (
     <div className="chat-container">
       <div className="ask-anything">What can I help with?</div>
       <ChatBox messages={messages} />
-
       <InputForm
         userInput={userInput}
         setUserInput={setUserInput}

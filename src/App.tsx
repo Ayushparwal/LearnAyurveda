@@ -1,6 +1,6 @@
 import './App.css';
 import Chat from './components/Chat';
-import Navbar from './components/NavBar';
+import Navbar from './components/Navbar';
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 

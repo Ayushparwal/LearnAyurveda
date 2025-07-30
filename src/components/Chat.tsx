@@ -27,8 +27,7 @@ const Chat: React.FC = () => {
   const inference = async (latestUserInput: string) => {
     const headers = {
       "Content-Type": "application/json",
-      Authorization:
-        "Bearer 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",
+      Authorization: `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`,
     };
 
     try {
@@ -65,7 +64,7 @@ const Chat: React.FC = () => {
         const updated = [...prevMessages];
         updated[updated.length - 1] = {
           role: "system",
-          content: reply || "Sorry, I couldn't respond.",
+          content: reply || "Sorry, Server is Busy.",
         };
         return updated;
       });
@@ -74,7 +73,7 @@ const Chat: React.FC = () => {
         const updated = [...prevMessages];
         updated[updated.length - 1] = {
           role: "system",
-          content: "An error occurred while processing your request.",
+          content: "Server is under Maintainence, Please try again later!",
         };
         return updated;
       });
